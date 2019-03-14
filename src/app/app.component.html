@@ -1,0 +1,68 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+    <a class="navbar-brand" href="">SmartVote</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav container">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+    </div>
+</nav>
+<div class="container">
+
+  <div style="text-align:center">
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+    <h2></h2>
+  </div>
+  <button mat-button [disabled]="checkInitialDate()" color="primary" (click)="restDay()"  ngbTooltip="Previous Day"> <mat-icon>skip_previous</mat-icon></button>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" [min]="dateIni" [(ngModel)]="dateIni"  (dateChange)="onDateSelect($event.value)" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix  [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker ></mat-datepicker>
+  </mat-form-field>
+  <button mat-button color="primary" (click)="addDay()"  ngbTooltip="Next Day"> <mat-icon>skip_next</mat-icon></button>
+  <div class="row">
+    <ul *ngIf='totalGames>0' style="width: 100%;">
+      <li  style="list-style:none;">
+        <div class="row">
+          <div class="col-md-4" style="text-align: center;background-color: lightblue;">Away </div>
+          <div class="col-md-4" style="text-align: center;background-color: lightcoral;"  >Home </div>
+          <div class="col-md-4"  style="text-align: center;background-color: rgb(106, 204, 180)">Stadium</div>
+        </div>
+      </li>
+      <li *ngFor='let game of games' style="list-style:none;">
+        <div class="row" style="padding-top: 10px">
+          <div class="col-md-4 selectable" style="cursor: pointer" ngbTooltip="{{game.teams.away.leagueRecord.wins+' - '+game.teams.away.leagueRecord.losses}}" >
+              <img src="//www.mlbstatic.com/mlb.com/builds/site-core/6ba79ea6e6d26980b58bc4c45f9688f6c41d1c8e_1550869197/images/logos/team-primary-on-light/{{game.teams.away.team.id}}.svg" alt="" style="width:48px;height:48px">
+              {{game.teams.away.team.name}}
+          </div>
+          <div class="col-md-4 selectable" style="cursor: pointer" ngbTooltip="{{game.teams.home.leagueRecord.wins+' - '+game.teams.home.leagueRecord.losses}}" >
+
+            <img src="//www.mlbstatic.com/mlb.com/builds/site-core/6ba79ea6e6d26980b58bc4c45f9688f6c41d1c8e_1550869197/images/logos/team-primary-on-light/{{game.teams.home.team.id}}.svg" alt="" style="width:48px;height:48px">
+              {{game.teams.home.team.name}}
+          </div>
+          <div class="col-md-3" style="padding-top: 9px;" >{{game.venue.name}} </div>
+        </div>
+      </li>
+
+    </ul>
+    <h3 *ngIf="totalGames==0">No Games for Selected Date</h3>
+  </div>
+
+
+</div>
+
+
+<router-outlet></router-outlet>

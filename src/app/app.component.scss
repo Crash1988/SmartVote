@@ -1,0 +1,22 @@
+.selectable{
+
+    padding-top: 4px;
+    padding-bottom: 4px;
+    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 5px;
+  &:hover{
+    border-color:#ccc;
+  }
+}
+
+::ng-deep button{
+
+  &:focus {
+    outline: none ;
+    outline: none ;
+  }
+  &:active{
+    border: none ;
+  }
+}
